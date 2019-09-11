@@ -13,6 +13,11 @@ async function findById(id) {
   return scheme ? scheme : null;
 }
 
+function addStep(step, scheme_id) {
+    return db('steps')
+      .insert({ ...step, scheme_id: scheme_id })
+      .then(([stepId]) => findSteps(scheme_id));
+  }
 function findSteps(id) {
   return db
     .from("schemes")
@@ -67,5 +72,6 @@ module.exports = {
   findSteps,
   add,
   update,
-  remove
+  remove,
+  addStep
 };
